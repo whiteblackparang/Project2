@@ -100,8 +100,19 @@
 
 **모델 평가**
 
-- CV RMSE 기준 최적 모델 선정
-- 모델별 특성 중요도 비교 (정규화)
+| Model | CV_RMSE | CV_Rsquared |
+|---|---|---|
+| Linear Regression | 0.6462 | 0.3532 |
+| Decision Tree | 0.4605 | 0.6484 |
+| Random Forest | 0.4610 | 0.6502 |
+
+> RMSE는 `log1p(trip_duration)` 스케일 기준입니다.
+
+**Best Model (by CV RMSE): Decision Tree**
+
+Random Forest와 성능 차이가 거의 없어(RMSE 0.4605 vs 0.4610, R² 0.6484 vs 0.6502), 더 단순하고 해석 가능한 Decision Tree를 최종 모델로 채택했습니다.
+
+- CV 기준 특성 중요도 비교
 - 잔차 분석 (Residuals vs Fitted, 잔차 분포, Q-Q Plot)
 - Predicted vs Actual 시각화
 
@@ -113,6 +124,7 @@
 - 오후 2~3시에 평균 운행 시간이 가장 길고, 새벽 시간대에 가장 짧음
 - 평일이 주말보다 운행 시간이 길며, 출퇴근 시간대에 차이가 두드러짐
 - 승차 위치는 맨해튼 중심부에 집중
+- Linear Regression 대비 Decision Tree/Random Forest 도입으로 CV RMSE 0.646 → 0.460(약 29% 개선), R² 0.353 → 0.648로 비선형 모델의 설명력이 크게 향상됨
 
 ---
 
